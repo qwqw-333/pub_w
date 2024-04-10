@@ -186,10 +186,10 @@ systemctl daemon-reload
 systemctl enable --now pdnsadmin.service pdnsadmin.socket
 
 pdns_version=$(pdnsutil --version | awk '{print $2}')
-echo "Webserver= '$IP'" > $workpath/credentials_for_connect
+echo "Webserver= http://$IP" > $workpath/credentials_for_connect
 echo "PowerDNS API URL= http://127.0.0.1:8081" >> $workpath/credentials_for_connect
-echo "PowerDNS API Key= '$pdns_apikey'" >> $workpath/credentials_for_connect
-echo "PowerDNS Version= '$pdns_version'" >> $workpath/credentials_for_connect
+echo "PowerDNS API Key= $pdns_apikey" >> $workpath/credentials_for_connect
+echo "PowerDNS Version= $pdns_version" >> $workpath/credentials_for_connect
 clear
 cat $workpath/credentials_for_connect
 
