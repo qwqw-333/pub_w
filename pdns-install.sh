@@ -1,4 +1,5 @@
 #!/bin/bash
+timedatectl set-timezone Europe/Kiev
 apt install -y sudo curl gnupg2 python3-dev git libsasl2-dev libldap2-dev python3-venv libmariadb-dev pkg-config build-essential libpq-dev nginx libssl-dev libxml2-dev libxslt1-dev libxmlsec1-dev libffi-dev apt-transport-https virtualenv python3-flask
 sudo sh -c 'echo "deb https://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
