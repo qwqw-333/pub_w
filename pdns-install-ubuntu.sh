@@ -6,8 +6,6 @@ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-
 sudo apt-get update
 sudo apt-get -y install postgresql
 sudo apt-get install -y pdns-server pdns-backend-pgsql
-systemctl disable systemd-resolved
-systemctl stop systemd-resolved
 mkdir -p /opt/pdns_install
 workpath="/opt/pdns_install"
 pdns_db="db_pdns"
@@ -187,6 +185,9 @@ chown -R pdns: "/run/pdnsadmin/"
 chown -R pdns: "/var/www/html/pdns/powerdnsadmin/"
 systemctl daemon-reload
 systemctl enable --now pdnsadmin.service pdnsadmin.socket
+systemctl disable systemd-resolved
+systemctl stop systemd-resolved
+systemctl restart pdns.service pdnsadmin.service pdnsadmin.socket
 pdns_version=$(pdnsutil --version | awk '{print $2}')
 echo "Webserver= http://$IP" > $workpath/credentials_for_connect
 echo "PowerDNS API URL= http://127.0.0.1:8081" >> $workpath/credentials_for_connect
