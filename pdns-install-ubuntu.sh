@@ -30,7 +30,7 @@ GRANT ALL PRIVILEGES ON DATABASE $pdns_db TO $pdns_db_user;" > "$workpath/pdns-c
 sudo -u postgres psql < "$workpath/pdns-createdb-pg.sql"
 sed -i "/# TYPE  DATABASE        USER            ADDRESS                 METHOD/a local   $pdns_db         $pdns_db_user                                  md5" "/etc/postgresql/$psql_version/main/pg_hba.conf"
 pg_ctlcluster $psql_version main reload
-wget https://raw.githubusercontent.com/PowerDNS/pdns/rel/auth-4.7.x/modules/gpgsqlbackend/schema.pgsql.sql
+wget https://raw.githubusercontent.com/PowerDNS/pdns/rel/auth-4.2.x/modules/gpgsqlbackend/schema.pgsql.sql
 export PGPASSWORD="$pdns_pwd"
 psql -U $pdns_db_user -f schema.pgsql.sql $pdns_db
 unset PGPASSWORD
