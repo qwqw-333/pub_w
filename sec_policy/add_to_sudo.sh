@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Check sudo installation
+if ! dpkg -s sudo &> /dev/null; then
+    apt-get update
+    apt-get install sudo -y
+fi
+
 # Display the list of users with their corresponding numbers
 echo "List of users:"
 count=0
