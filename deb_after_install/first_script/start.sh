@@ -1,10 +1,13 @@
 #!/bin/bash
+user='konoval'
+enc_pass='$6$NxLMK6nUAdll6AGO$Q95LWeyo4zwfM4Jfcz7aMr5kaRZmYQhk6QIcvCBtXXZWSJl2JKjmXv6kyQkFA9DCOINs0OSX05lNtJUKMVYL9/'
+location='Europe/Kyiv'
 
 # Update & upgrade packages
 apt update && apt upgrade -y
 
 # Set timezone
-timedatectl set-timezone Europe/Kyiv
+timedatectl set-timezone $location
 
 # Disable IPv6 and confirm changes
 echo "net.ipv6.conf.all.disable_ipv6 = 1" >> /etc/sysctl.conf
@@ -12,25 +15,25 @@ echo "net.ipv6.conf.default.disable_ipv6 = 1" >> /etc/sysctl.conf
 /sbin/sysctl -p
 
 # Install necessary packages
-apt install curl wget git lsb-release tmux sudo mc -y
+apt install curl wget git lsb-release build-essential tmux sudo mc -y
 
-# Create user "konoval" without password
-adduser --disabled-password --gecos "" konoval
+# Create user "$user" and set encrypted pass
+adduser --disabled-password --gecos "" $user
+echo $user:$pass | chpasswd -e
 
 # Add authorization method by TouchID
-mkdir -p /home/konoval/.ssh
-echo 'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBO2pz6jd5V4QPRuECNg6Aqfy9RnULFvRaPvIayyyNEcF89t7BmmJZhNlvLjT/jt894SU0vNZhLjwLo8wilD7ZsE=' | tee /home/konoval/.ssh/authorized_keys
-chown -R konoval:konoval /home/konoval/.ssh
-chmod 700 /home/konoval/.ssh
-chmod 600 /home/konoval/.ssh/authorized_keys
+mkdir -p /home/$user/.ssh
+echo 'ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBO2pz6jd5V4QPRuECNg6Aqfy9RnULFvRaPvIayyyNEcF89t7BmmJZhNlvLjT/jt894SU0vNZhLjwLo8wilD7ZsE=' | tee /home/$user/.ssh/authorized_keys
+chown -R $user:$user /home/$user/.ssh
+chmod 700 /home/$user/.ssh
+chmod 600 /home/$user/.ssh/authorized_keys
 
-# Add root privileges to "konoval" using sudo with root password 
-touch /etc/sudoers.d/konoval
-echo "Defaults:konoval rootpw" | tee -a /etc/sudoers.d/konoval
-echo "konoval ALL=(ALL:ALL) ALL" | tee -a /etc/sudoers.d/konoval
+# Add root privileges to "$user" using sudo
+touch /etc/sudoers.d/$user
+echo "$user ALL=(ALL:ALL) ALL" | tee -a /etc/sudoers.d/$user
 
 # Welcome script
-cat << 'EOF' > /home/konoval/.system_info.sh
+cat << 'EOF' > /home/$user/.system_info.sh
 #!/bin/bash
 
 print_system_info() {
@@ -55,6 +58,7 @@ print_system_info() {
     security_updates=$(apt-get --simulate dist-upgrade | grep ^Inst | grep -c security)
 
     # Output information
+    echo
     echo -e "Welcome to \e[1;32m${hostname}\e[0m server"
     echo "System information as of $(date +'%a %d %B %Y %H:%M:%S') $timezone"
     echo
@@ -80,9 +84,9 @@ print_system_info() {
 print_system_info
 EOF
 
-chmod +x /home/konoval/.system_info.sh
-echo "/home/konoval/.system_info.sh" >> /home/konoval/.bashrc
-source /home/konoval/.bashrc
+chmod +x /home/$user/.system_info.sh
+echo "/home/$user/.system_info.sh" >> /home/$user/.bashrc
+source /home/$user/.bashrc
 
 sed -i 's/^.*PrintLastLog.*/PrintLastLog no/' /etc/ssh/sshd_config
 /etc/init.d/ssh restart
@@ -94,7 +98,7 @@ echo "Скачивание и установка Docker..."
 curl -fsSL https://get.docker.com -o get-docker.sh
 sh get-docker.sh
 rm get-docker.sh
-usermod -aG docker konoval
+usermod -aG docker $user
 
 # System clean
 apt autoremove -y
