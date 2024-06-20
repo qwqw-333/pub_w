@@ -3,4 +3,4 @@ For installation use
 bash <(wget -qO- https://github.com/qwqw-333/pub_w/raw/main/deb_after_install/first_script/start.sh)
 ```
 Example
-![Example.](/main/deb_after_install/example.png)
+![Example](./example.png)
