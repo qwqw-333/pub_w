@@ -89,7 +89,6 @@ echo "/home/$user/.system_info.sh" >> /home/$user/.bashrc
 source /home/$user/.bashrc
 
 sed -i 's/^.*PrintLastLog.*/PrintLastLog no/' /etc/ssh/sshd_config
-/etc/init.d/ssh restart
 cat /dev/null > /etc/motd
 rm /etc/update-motd.d/* 
 
@@ -104,5 +103,5 @@ usermod -aG docker $user
 apt autoremove -y
 apt clean
 
-# Remove script
-rm start.sh
+# Remove script and restart ssh
+rm start.sh && /etc/init.d/ssh restart
