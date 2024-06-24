@@ -19,7 +19,7 @@ apt install curl wget git lsb-release build-essential tmux sudo mc -y
 
 # Create user "$user" and set encrypted pass
 adduser --disabled-password --gecos "" $user
-echo $user:$pass | chpasswd -e
+echo "${user}:${enc_pass}" | sudo chpasswd -e
 
 # Add authorization method by TouchID
 mkdir -p /home/$user/.ssh
