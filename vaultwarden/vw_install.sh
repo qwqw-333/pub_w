@@ -1,5 +1,5 @@
 # Install brew
-apt install build-essential procps curl file git
+sudo apt install build-essential procps curl file git
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # Install mkcert
