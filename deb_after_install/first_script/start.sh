@@ -103,5 +103,5 @@ usermod -aG docker $user
 apt autoremove -y
 apt clean
 
-# Remove script and restart ssh
-rm start.sh && /etc/init.d/ssh restart
+# Restart ssh
+/etc/init.d/ssh restart
