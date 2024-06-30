@@ -1,3 +1,7 @@
+# Set variables
+domaine='vw.local'
+user='konoval'
+
 # Install brew
 sudo apt install build-essential procps curl file git
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" < /dev/null
@@ -9,12 +13,12 @@ brew install mkcert
 
 # Create folder for vaultwarden
 sudo mkdir -p /docker/vaultwarden/certs	/docker/vaultwarden/vw-data
-sudo chown -R konoval:docker /docker
+sudo chown -R $user:docker /docker
 
 # Create CA and certificate for vw.local
 cd /docker/vaultwarden/certs
 mkcert -install
-mkcert -key-file vw.local-private-key.pem -cert-file vw.local.pem vw.local
+mkcert -key-file $domaine-private-key.pem -cert-file $domaine.pem $domaine
 
 # Create docker - compose file
 cd /docker/vaultwarden/
