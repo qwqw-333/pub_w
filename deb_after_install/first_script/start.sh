@@ -1,4 +1,6 @@
 #!/bin/bash
+
+# Set variables
 user='konoval'
 enc_pass='$6$NxLMK6nUAdll6AGO$Q95LWeyo4zwfM4Jfcz7aMr5kaRZmYQhk6QIcvCBtXXZWSJl2JKjmXv6kyQkFA9DCOINs0OSX05lNtJUKMVYL9/'
 location='Europe/Kyiv'
