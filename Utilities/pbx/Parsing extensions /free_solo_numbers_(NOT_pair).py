@@ -23,16 +23,15 @@ def main():
     decade = input("Введите интересующую декаду (первые 2 цифры номера): ")
 
     # Чтение используемых номеров
-#    used_numbers_file = f"output/all_used_numbers_{decade}xxx.csv"
-    used_numbers_file = input("Введите путь к файлу с используемыми номерами: ")
+    used_numbers_file = input("Введите путь к файлу с используемыми номерами (all_used_numbers_.csv): ")
     used_numbers = read_numbers_from_csv(used_numbers_file)
 
     # Чтение используемых парных номеров
-    used_pairs_file = input("Введите путь к файлу с используемыми парными номерами: ")
+    used_pairs_file = input("Введите путь к файлу с используемыми парными номерами (all_used_numbers_pairs_.csv): ")
     used_pairs = read_numbers_from_csv(used_pairs_file)
 
     # Чтение свободных парных номеров
-    free_pairs_file = input("Введите путь к файлу со свободными парными номерами: ")
+    free_pairs_file = input("Введите путь к файлу со свободными парными номерами (free_pairs_numbers_.csv): ")
     free_pairs = read_numbers_from_csv(free_pairs_file)
 
     # Генерация всех возможных номеров для декады
