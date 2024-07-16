@@ -1,16 +1,18 @@
 import csv
 import os
-from itertools import product
 
 def read_numbers_from_csv(file_path):
-    with open(file_path, mode='r') as file:
-        reader = csv.reader(file)
-        numbers = {int(row[0]) for row in reader if len(row[0]) == 5 and row[0].isdigit()}
-    return numbers
+    try:
+        with open(file_path, mode='r', encoding='cp1251') as file:  # Указываем кодировку
+            reader = csv.reader(file)
+            numbers = {int(row[0]) for row in reader if len(row[0]) == 5 and row[0].isdigit()}
+        return numbers
+    except UnicodeDecodeError:
+        print(f"Ошибка декодирования файла: {file_path}. Попробуйте другую кодировку.")
+        return set()
 
 def generate_pairs(decade1, decade2):
     pairs = []
-    # Генерация всех возможных номеров с указанными декадами
     for last_three in range(1000):  # от 000 до 999
         num1 = int(f"{decade1}{last_three:03}")
         num2 = int(f"{decade2}{last_three:03}")
@@ -25,7 +27,7 @@ def filter_missing_pairs(pairs, existing_numbers):
     return missing_pairs
 
 def write_pairs_to_csv(pairs, output_file_path):
-    with open(output_file_path, mode='w', newline='') as file:
+    with open(output_file_path, mode='w', newline='', encoding='utf-8') as file:  # Указываем кодировку
         writer = csv.writer(file)
         for num1, num2 in pairs:
             writer.writerow([num1, num2])

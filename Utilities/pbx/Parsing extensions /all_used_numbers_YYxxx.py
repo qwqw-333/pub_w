@@ -2,10 +2,14 @@ import csv
 import os
 
 def read_numbers_from_csv(file_path):
-    with open(file_path, mode='r') as file:
-        reader = csv.reader(file)
-        numbers = {int(row[0]) for row in reader if len(row[0]) == 5 and row[0].isdigit()}
-    return numbers
+    try:
+        with open(file_path, mode='r', encoding='cp1251') as file:  # Указываем кодировку
+            reader = csv.reader(file)
+            numbers = {int(row[0]) for row in reader if len(row[0]) == 5 and row[0].isdigit()}
+        return numbers
+    except UnicodeDecodeError:
+        print(f"Ошибка декодирования файла: {file_path}. Попробуйте другую кодировку.")
+        return set()
 
 def sort_numbers(numbers):
     return sorted(numbers)
@@ -16,7 +20,7 @@ def filter_by_decade(numbers, decade):
     return sorted(filtered_numbers)
 
 def write_numbers_to_csv(numbers, output_file_path):
-    with open(output_file_path, mode='w', newline='') as file:
+    with open(output_file_path, mode='w', newline='', encoding='utf-8') as file:  # Указываем кодировку
         writer = csv.writer(file)
         for number in numbers:
             writer.writerow([number])

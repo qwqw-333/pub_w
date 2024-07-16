@@ -3,10 +3,14 @@ import os
 from collections import defaultdict
 
 def read_numbers_from_csv(file_path):
-    with open(file_path, mode='r') as file:
-        reader = csv.reader(file)
-        numbers = {int(row[0]) for row in reader if len(row[0]) == 5 and row[0].isdigit()}
-    return numbers
+    try:
+        with open(file_path, mode='r', encoding='cp1251') as file:
+            reader = csv.reader(file)
+            numbers = {int(row[0]) for row in reader if len(row[0]) == 5 and row[0].isdigit()}
+        return numbers
+    except UnicodeDecodeError:
+        print(f"Ошибка декодирования файла: {file_path}. Попробуйте другую кодировку.")
+        return set()
 
 def find_pairs(numbers, decade1, decade2):
     pairs = []
@@ -31,7 +35,7 @@ def find_pairs(numbers, decade1, decade2):
     return pairs
 
 def write_pairs_to_csv(pairs, output_file_path):
-    with open(output_file_path, mode='w', newline='') as file:
+    with open(output_file_path, mode='w', newline='', encoding='utf-8') as file:
         writer = csv.writer(file)
         for num1, num2 in pairs:
             writer.writerow([num1, num2])
@@ -64,7 +68,7 @@ def main():
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
 
-    output_file_path = os.path.join(output_dir, f"all_USED_numbers_pairs_{decade1}xxx_{decade2}xxx.csv")
+    output_file_path = os.path.join(output_dir, f"all_used_numbers_pairs_{decade1}xxx_{decade2}xxx.csv")
     write_pairs_to_csv(pairs, output_file_path)
     print(f"Найденные пары записаны в файл {output_file_path}")
 
