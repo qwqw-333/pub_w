@@ -1,3 +1,6 @@
+#!/bin/bash
+
+echo
 read -p "Signalwire token: " TOKEN
 echo
 
