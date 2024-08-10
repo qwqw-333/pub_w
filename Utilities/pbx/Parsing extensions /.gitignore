@@ -1,4 +1,5 @@
 .idea/
+.venv/
 
 input/*
 !.gitignore
