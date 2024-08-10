@@ -55,13 +55,13 @@ def main():
         write_numbers_to_csv(filtered_sorted_numbers, output_file_path)
         print(f"Результаты записаны в файл {output_file_path}")
 
-        repeat = input("Хотите ввести другую декаду? (да/нет): ").strip().lower()
-        if repeat != 'да':
+        repeat = input("Хотите ввести другую декаду? (yes/no): ").strip().lower()
+        if repeat != 'yes':
             break
 
     # Запрос на очистку папки input
-    clear_input = input("Хотите очистить папку 'input'? (да/нет): ").strip().lower()
-    if clear_input == 'да':
+    clear_input = input("Хотите очистить папку 'input'? (yes/no): ").strip().lower()
+    if clear_input == 'yes':
         clear_input_folder(input_folder)
         print(f"Папка {input_folder} очищена")
     else:
