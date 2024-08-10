@@ -73,8 +73,8 @@ def main():
     print(f"Найденные пары записаны в файл {output_file_path}")
 
     # Запрос на очистку папки input
-    clear_input = input("Хотите очистить папку 'input'? (да/нет): ").strip().lower()
-    if clear_input == 'да':
+    clear_input = input("Хотите очистить папку 'input'? (yes/no): ").strip().lower()
+    if clear_input == 'yes':
         clear_input_folder(input_folder)
         print(f"Папка {input_folder} очищена")
     else:
