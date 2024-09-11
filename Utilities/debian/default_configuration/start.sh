@@ -94,12 +94,12 @@ sed -i 's/^.*PrintLastLog.*/PrintLastLog no/' /etc/ssh/sshd_config
 cat /dev/null > /etc/motd
 rm /etc/update-motd.d/* 
 
-# Docker installation
-echo "Скачивание и установка Docker..."
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh get-docker.sh
-rm get-docker.sh
-usermod -aG docker $user
+## Docker installation
+#echo "Скачивание и установка Docker..."
+#curl -fsSL https://get.docker.com -o get-docker.sh
+#sh get-docker.sh
+#rm get-docker.sh
+#usermod -aG docker $user
 
 # System clean
 apt autoremove -y
