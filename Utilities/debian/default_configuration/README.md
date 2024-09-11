@@ -1,14 +1,16 @@
-For installation use root
-```
-su -
-```
-**Without docker**
+> [!NOTE]
+> For installation use root
+> ```
+> su -
+> ```
+**Installation without docker**
 ```bash
 bash <(wget -qO- https://github.com/qwqw-333/pub_w/raw/main/Utilities/debian/default_configuration/start.sh)
 ```
-**With docker**
+**Installation with docker**
 ```bash
 bash <(wget -qO- https://github.com/qwqw-333/pub_w/raw/main/Utilities/debian/default_configuration/start+docker.sh)
 ```
-Example
+
+_Example:_
 ![Example](./example.png)
