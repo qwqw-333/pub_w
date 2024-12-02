@@ -4,6 +4,11 @@
 user='konoval'
 enc_pass='$6$NxLMK6nUAdll6AGO$Q95LWeyo4zwfM4Jfcz7aMr5kaRZmYQhk6QIcvCBtXXZWSJl2JKjmXv6kyQkFA9DCOINs0OSX05lNtJUKMVYL9/'
 location='Europe/Kyiv'
+os=$(lsb_release -sc)
+
+# Source list
+echo "deb http://deb.debian.org/debian ${os} main non-free-firmware" > /etc/apt/sources.list
+echo "deb-src http://deb.debian.org/debian ${os} main non-free-firmware" >> /etc/apt/sources.list
 
 # Update & upgrade packages
 apt update && apt upgrade -y
